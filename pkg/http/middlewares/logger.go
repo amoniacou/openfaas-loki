@@ -21,7 +21,7 @@ func RequestLogger(skipList []string) func(next http.Handler) http.Handler {
 				return
 			}
 
-			ww := NewResponseWriter(w)
+			ww := NewResponseWriter(w, r)
 
 			t1 := time.Now()
 			defer func() {

@@ -22,15 +22,17 @@ type ResponseWriter interface {
 }
 
 // NewResponseWriter creates a ResponseWriter that wraps an http.ResponseWriter
-func NewResponseWriter(rw http.ResponseWriter) ResponseWriter {
+func NewResponseWriter(rw http.ResponseWriter, req *http.Request) ResponseWriter {
+	ctx := req.Context()
+
 	nrw := &responseWriter{
 		ResponseWriter: rw,
 	}
 
-	//nolint:staticcheck // ignore deprecation error
-	_, ok := rw.(http.CloseNotifier)
-	if ok {
-		return &responseWriterCloseNotifer{nrw}
+	select {
+	case <-ctx.Done():
+		return nrw
+	default:
 	}
 
 	return nrw
@@ -89,17 +91,4 @@ func (rw *responseWriter) Flush() {
 		}
 		flusher.Flush()
 	}
-}
-
-// Deprecated: the CloseNotifier interface predates Go's context package.
-// New code should use Request.Context instead.
-//
-// We need to update the log provider before we can remove this.
-type responseWriterCloseNotifer struct {
-	*responseWriter
-}
-
-func (rw *responseWriterCloseNotifer) CloseNotify() <-chan bool {
-	//nolint:staticcheck // we need to update the log provider before we can remove this.
-	return rw.ResponseWriter.(http.CloseNotifier).CloseNotify()
 }

@@ -16,8 +16,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 
 	"github.com/LucasRoesler/openfaas-loki/pkg"
 	"github.com/LucasRoesler/openfaas-loki/pkg/faas"
@@ -64,8 +64,9 @@ var rootCmd = &cobra.Command{
 		routes.Get("/system/logs", logs.NewLogHandlerFunc(requester, viper.GetDuration("timeout")))
 
 		srv := http.Server{
-			Addr:    ":" + viper.GetString("port"),
-			Handler: routes,
+			Addr:              ":" + viper.GetString("port"),
+			Handler:           routes,
+			ReadHeaderTimeout: 10 * time.Second,
 		}
 
 		idleConnsClosed := make(chan struct{})
