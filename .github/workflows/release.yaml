@@ -34,7 +34,7 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: release --rm-dist --single-target
+          args: build --rm-dist --single-target
         env:
           GOARCH: ${{ matrix.platform }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
