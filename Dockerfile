@@ -1,9 +1,8 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} gcr.io/distroless/static:nonroot
 
 ARG TARGETPLATFORM
-ARG TARGETOS
-ARG TARGETARCH
+ARG TARGETPATH
 
-COPY dist/openfaas-loki_${TARGETOS}_${TARGETARCH}/openfaas-loki /
+COPY ${TARGETPATH} /
 
 ENTRYPOINT ["/openfaas-loki"]
