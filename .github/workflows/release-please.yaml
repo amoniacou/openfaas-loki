@@ -12,7 +12,7 @@ jobs:
         id: release
         with:
           # use the CI token to pretend not to be a action
-          token: ${{ secrets.CI_RELEASER_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           release-type: go
           package-name: ""
           extra-files: |
