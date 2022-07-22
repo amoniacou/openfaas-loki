@@ -119,19 +119,14 @@ jobs:
         # make sure to use the semver output set for the version, helm does not want a "v" prefix
         run: helm package charts/openfaas-loki --version=${{ steps.semver.outputs.value }} --app-version=${{ steps.metadata.outputs.semver }} 
       
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: upload artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            openfaas-loki-${{ steps.semver.outputs.value }}.tgz 
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      # - name: upload artifacts
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     tag_name: ${{ github.ref_name }}
-      #     files: |
-      #       openfaas-loki-${{ steps.semver.outputs.value }}.tgz 
+      - name: Publish Helm charts
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
