@@ -42,9 +42,9 @@ jobs:
       - name: Binary file parsing
         id: artifacts
         run: |
-          cat dist/artifacts.json
-          echo ${$(cat dist/artifacts.json | jq -r '.[0].path')#$(pwd)/}
-          echo ::set-output name=artifact_path::$(echo ${$(cat dist/artifacts.json | jq -r '.[0].path')#$(pwd)/})
+          set -x
+          artifact_path=$(cat dist/artifacts.json | jq -r '.[0].path')
+          echo ::set-output name=artifact_path::$(echo ${artifact_path#$(pwd)/})
       - name: Get metadata
         id: metadata
         uses: contiamo/git-metadata-action@main
