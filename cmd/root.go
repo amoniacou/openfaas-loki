@@ -30,7 +30,7 @@ import (
 
 //nolint:gochecknoinits // cobra is initialized in init()
 func init() {
-	rootCmd.Flags().String("log-level", "INFO", "Logging level")
+	rootCmd.Flags().String("log-level", "info", "Logging level")
 	rootCmd.Flags().String("log-fmt", "logfmt", "Logging output format: logfmt|json")
 	rootCmd.Flags().Int("port", 9191, "address the HTTP server will be listening to")
 	rootCmd.Flags().Duration("timeout", 30*time.Second, "log request timeout")

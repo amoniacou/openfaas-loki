@@ -61,10 +61,11 @@ func (c *httpClient) doRequest(ctx context.Context, path string, out interface{}
 	}
 	req = req.WithContext(ctx)
 
-	logger.Debug().Msg(req.URL.String())
+	logger.Debug().Msgf("URL: %s", req.URL.String())
 
 	resp, err := c.parent.Do(req)
 	if err != nil {
+		logger.Debug().Err(err).Msgf("Error with request")
 		return errors.Wrap(err, "failed request")
 	}
 	defer func() {
@@ -74,15 +75,15 @@ func (c *httpClient) doRequest(ctx context.Context, path string, out interface{}
 		}
 	}()
 
+	logger.Debug().Msgf("Response: %v", resp.Status)
 	if !isOK(resp.StatusCode) {
 		return errors.Wrap(err, "error response from server")
 	}
-
 	return json.NewDecoder(resp.Body).Decode(out)
 }
 
 func isOK(s int) bool {
-	return s/100 == 2
+	return s == 200 || s == 201
 }
 
 func requestAsQueryParms(req logproto.QueryRequest) (params url.Values) {

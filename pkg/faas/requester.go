@@ -70,9 +70,9 @@ func (l *lokiRequester) buildRequest(logReq logs.Request) (req logproto.QueryReq
 	}
 
 	if logReq.Instance != "" {
-		req.Selector = fmt.Sprintf("{faas_function=\"%s\",instance=\"%s\"}", logReq.Name, logReq.Instance)
+		req.Selector = fmt.Sprintf("{app=\"%s\",instance=\"%s\"}", logReq.Name, logReq.Instance)
 	} else {
-		req.Selector = fmt.Sprintf("{faas_function=\"%s\"}", logReq.Name)
+		req.Selector = fmt.Sprintf("{app=\"%s\"}", logReq.Name)
 	}
 	log.Debug().Str("method", "buildRequest").Msgf("%v => %v", logReq, req)
 	return req
