@@ -3,9 +3,9 @@ entries:
   openfaas-loki:
   - apiVersion: v1
     appVersion: v1.7.0
-    created: "2022-07-25T07:45:41.850973006Z"
+    created: "2022-07-25T08:09:25.099697445Z"
     description: A Loki powered log provider for OpenFaaS
-    digest: bcfec53551a4a03c74f95cb65d4ff29b683cd1ea820fb9c4f44c5e4bd37e4e4f
+    digest: 3ee3d72f327b09841b5e89b964be4218b6729530e9dc6931f5416fbce188c3cd
     maintainers:
     - name: Oleksandr Simonov
       url: https://amoniac.eu
@@ -25,4 +25,4 @@ entries:
     urls:
     - https://amoniacou.github.io/openfaas-loki/docs/openfaas-loki-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-25T07:45:41.849982106Z"
+generated: "2022-07-25T08:09:25.098972644Z"
