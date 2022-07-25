@@ -45,3 +45,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
+
+replace github.com/openfaas/faas-provider => github.com/amoniacou/faas-provider v0.19.1-0.20220725095631-9b66f91b1b8e

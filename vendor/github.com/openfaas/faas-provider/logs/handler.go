@@ -26,12 +26,6 @@ func NewLogHandlerFunc(requestor Requester, timeout time.Duration) http.HandlerF
 			defer r.Body.Close()
 		}
 
-		cn, ok := w.(http.CloseNotifier)
-		if !ok {
-			log.Println("LogHandler: response is not a CloseNotifier, required for streaming response")
-			http.NotFound(w, r)
-			return
-		}
 		flusher, ok := w.(http.Flusher)
 		if !ok {
 			log.Println("LogHandler: response is not a Flusher, required for streaming response")
@@ -72,7 +66,7 @@ func NewLogHandlerFunc(requestor Requester, timeout time.Duration) http.HandlerF
 		jsonEncoder := json.NewEncoder(w)
 		for messages != nil {
 			select {
-			case <-cn.CloseNotify():
+			case <-ctx.Done():
 				log.Println("LogHandler: client stopped listening")
 				return
 			case msg, ok := <-messages:
