@@ -44,7 +44,7 @@ jobs:
         run: |
           cat dist/artifacts.json
           echo ${$(cat dist/artifacts.json | jq -r '.[0].path')#$(pwd)/}
-          echo ::set-output name=artifact_path::$(echo echo ${$(cat dist/artifacts.json | jq -r '.[0].path')#$(pwd)/})
+          echo ::set-output name=artifact_path::$(echo ${$(cat dist/artifacts.json | jq -r '.[0].path')#$(pwd)/})
       - name: Get metadata
         id: metadata
         uses: contiamo/git-metadata-action@main
