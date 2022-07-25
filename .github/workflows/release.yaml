@@ -1,5 +1,5 @@
 name: Release
-on:  
+on:
   push:
     tags:
       - '*'
@@ -42,7 +42,9 @@ jobs:
       - name: Binary file parsing
         id: artifacts
         run: |
+          cat dist/artifacts.json
           artifact_path=$(cat dist/artifacts.json | jq -r '.[0].path')
+          echo ${articact_path#$(pwd)/}
           echo ::set-output name=artifact_path::$(echo ${articact_path#$(pwd)/})
       - name: Get metadata
         id: metadata
