@@ -41,10 +41,8 @@ jobs:
 
       - name: Binary file parsing
         id: artifacts
-        run: |
-          set -x
-          artifact_path=$(cat dist/artifacts.json | jq -r '.[0].path')
-          echo ::set-output name=artifact_path::$(echo ${artifact_path#$(pwd)/})
+        run: >
+          artifact_path=$(cat dist/artifacts.json | jq -r '.[0].path') && echo ::set-output name=artifact_path::$(echo ${artifact_path#$(pwd)/})
       - name: Get metadata
         id: metadata
         uses: contiamo/git-metadata-action@main
