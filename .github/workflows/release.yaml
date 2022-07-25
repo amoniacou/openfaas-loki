@@ -93,7 +93,7 @@ jobs:
           tags: |
             ${{ env.registry }}/${{ steps.get_repo_owner.outputs.repo_owner }}/${{ env.name}}:${{ steps.metadata.outputs.semver }}
             ${{ env.registry }}/${{ steps.get_repo_owner.outputs.repo_owner }}/${{ env.name}}:latest
-          build-args: 'TARGETPATH=${{ steps.artifacts.artifact_path }}'
+          build-args: 'TARGETPATH=${{ steps.artifacts.outputs.artifact_path }}'
   release:
     runs-on: ubuntu-latest
     needs: [build]
