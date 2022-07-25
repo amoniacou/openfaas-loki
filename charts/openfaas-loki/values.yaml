@@ -10,7 +10,7 @@ logLevel: INFO
 timeout: 30s
 
 image:
-  repository: ghcr.io/lucasroesler/openfaas-loki
+  repository: ghcr.io/amoniacou/openfaas-loki
   # -- will default to Chart.appVersion
   tag: ""
   pullPolicy: Always
