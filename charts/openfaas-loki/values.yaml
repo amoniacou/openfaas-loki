@@ -6,7 +6,7 @@ replicaCount: 1
 
 # -- required
 lokiURL: ""
-logLevel: INFO
+logLevel: info
 timeout: 30s
 
 image:
